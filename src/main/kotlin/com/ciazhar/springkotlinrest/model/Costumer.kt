@@ -10,7 +10,7 @@ import javax.persistence.Id
  */
 
 @Entity
-class Costumer (
+data class Costumer (
         @Id @GeneratedValue(strategy = GenerationType.AUTO)
         var id: Int=0,
 

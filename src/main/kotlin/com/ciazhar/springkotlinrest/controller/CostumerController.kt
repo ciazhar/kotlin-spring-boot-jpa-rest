@@ -23,5 +23,7 @@ class CostumerController(val repository: CostumerRepository){
     @RequestMapping("/delete")
     fun delete(@RequestParam id : Int) = repository.delete(id)
 
+    @RequestMapping("/single")
+    fun string(@RequestParam id : Int) = repository.findOne(id)
 
 }
