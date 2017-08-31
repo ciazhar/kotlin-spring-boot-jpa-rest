@@ -1,9 +1,8 @@
 package com.ciazhar.springkotlinrest.model
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import org.hibernate.validator.constraints.Email
+import javax.persistence.*
+import javax.validation.constraints.NotNull
 
 /**
  * Created by ciazhar on 8/25/17.
@@ -12,9 +11,13 @@ import javax.persistence.Id
 @Entity
 data class Costumer (
         @Id @GeneratedValue(strategy = GenerationType.AUTO)
-        var id: Int=0,
+        var id: Int?=null,
 
-        var nama:String="",
+        @field:NotNull
+        var nama:String?=null,
 
-        var email:String=""
+        @field:NotNull
+        @field:Email
+        @field:Column(unique = true)
+        var email:String?=null
 )
