@@ -24,7 +24,7 @@ class ResponseData<T> {
         this.data = data
     }
 
-    constructor(status: String, message: String) {
+    constructor(status: String, message: String?) {
         this.status = status
         this.message = message
     }
