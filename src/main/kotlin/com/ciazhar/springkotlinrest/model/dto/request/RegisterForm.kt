@@ -7,9 +7,9 @@ import javax.validation.constraints.NotNull
  */
 
 class RegisterForm(
-        @get:NotNull
+        @field:NotNull
         var nama : String?=null,
 
-        @get:NotNull
+        @field:NotNull
         var email : String?=null
 )
