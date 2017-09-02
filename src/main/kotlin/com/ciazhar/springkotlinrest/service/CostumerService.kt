@@ -15,4 +15,8 @@ interface CostumerService {
     fun delete(id: Int) : ResponseData<*>
 
     fun update(costumer: Costumer) : ResponseData<*>
+
+    fun findOne(id : Int) : ResponseData<*>
+
+    fun findAll() : ResponseData<*>
 }

@@ -1,5 +1,6 @@
 package com.ciazhar.springkotlinrest.service.impl
 
+import com.ciazhar.authserver.config.string.ErrorMessage
 import com.ciazhar.springkotlinrest.model.Costumer
 import com.ciazhar.springkotlinrest.model.dto.request.RegisterForm
 import com.ciazhar.springkotlinrest.model.dto.response.ResponseData
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class CostumerServiceImpl (val costumerRepository: CostumerRepository) : CostumerService {
+class CostumerServiceImpl (private val costumerRepository: CostumerRepository) : CostumerService {
 
     override fun register(registerForm: RegisterForm) : ResponseData<*>{
         try {
@@ -18,7 +19,7 @@ class CostumerServiceImpl (val costumerRepository: CostumerRepository) : Costume
                     email = registerForm.email
             ))
         }catch (e:Exception){
-            return ResponseData<Objects>(status = "Register Failed",message = e.message)
+            return ResponseData<Objects>(status = ErrorMessage.ERROR,message = e.message)
         }
         return ResponseData(registerForm)
     }
@@ -27,17 +28,33 @@ class CostumerServiceImpl (val costumerRepository: CostumerRepository) : Costume
         try {
             costumerRepository.delete(id)
         }catch (e:Exception){
-            return ResponseData<Objects>(status = "Delete Failed",message = e.message)
+            return ResponseData<Objects>(status = ErrorMessage.ERROR,message = e.message)
         }
         return ResponseData(id)
     }
 
+    override fun findOne(id: Int): ResponseData<*> {
+        try {
+            return ResponseData(costumerRepository.findOne(id))
+        }catch (e:Exception){
+            return ResponseData<Objects>(status = ErrorMessage.ERROR,message = e.message)
+        }
+
+    }
+
+    override fun findAll(): ResponseData<*> {
+        try {
+            return ResponseData(costumerRepository.findAll())
+        }catch (e:Exception){
+            return ResponseData<Objects>(status = ErrorMessage.ERROR,message = e.message)
+        }
+    }
 
     override fun update(costumer: Costumer): ResponseData<*> {
         try {
             costumerRepository.save(costumer)
         }catch (e:Exception){
-            return ResponseData<Objects>(status = "Update Failed",message = e.message)
+            return ResponseData<Objects>(status = ErrorMessage.ERROR,message = e.message)
         }
         return ResponseData(costumer)
     }

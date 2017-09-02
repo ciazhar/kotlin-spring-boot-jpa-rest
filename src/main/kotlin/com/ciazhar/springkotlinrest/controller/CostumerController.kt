@@ -3,7 +3,6 @@ package com.ciazhar.springkotlinrest.controller
 import com.ciazhar.springkotlinrest.model.Costumer
 import com.ciazhar.springkotlinrest.model.dto.request.RegisterForm
 import com.ciazhar.springkotlinrest.model.dto.response.ResponseData
-import com.ciazhar.springkotlinrest.repository.CostumerRepository
 import com.ciazhar.springkotlinrest.service.CostumerService
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
@@ -14,16 +13,16 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/costumer")
-class CostumerController(val repository: CostumerRepository, val service : CostumerService){
+class CostumerController(private val service : CostumerService){
 
     @GetMapping("/all")
     fun findAll() : ResponseData<*> {
-        return ResponseData(repository.findAll())
+        return service.findAll()
     }
 
     @GetMapping("/single")
     fun single(@RequestParam id : Int) : ResponseData<*>{
-        return ResponseData(repository.findOne(id))
+        return service.findOne(id)
     }
 
     @PostMapping("/register")
@@ -38,7 +37,7 @@ class CostumerController(val repository: CostumerRepository, val service : Costu
 
     @DeleteMapping("/delete")
     fun delete(@RequestParam id : Int) : ResponseData<*> {
-        return ResponseData(repository.delete(id))
+        return service.delete(id)
     }
 
 
